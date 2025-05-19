@@ -1,4 +1,4 @@
-readme_content = f"""# IDEIA DO PROJETO - CP2 - ADVANCED BUSINESS DEVELOPMENT WITH .NET
+# IDEIA DO PROJETO - CP2 - ADVANCED BUSINESS DEVELOPMENT WITH .NET
 
 Este documento apresenta a proposta do grupo para o projeto de CP2, baseado no desafio real da Mottu.
 
