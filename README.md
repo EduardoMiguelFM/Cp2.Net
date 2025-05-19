@@ -39,7 +39,7 @@ Essa API será a base para uma futura plataforma completa de monitoramento em te
 ## 📐 ENTIDADES PRINCIPAIS
 
 - **Moto**: placa, modelo, status, pátio vinculado  
-- **Pátio**: nome da unidade, setor físico dividído por cores e status da moto (ex: Setor A "Disponível", Setor B"Indisponível")
+- **Pátio**: nome da unidade, setor físico (dividído por cores e status da moto. Ex: Setor A "Disponível", Setor B"Indisponível")
 
 ---
 
