@@ -9,5 +9,10 @@ namespace Mottu.Application.Interfaces
         Task<PatioDTO> CreateAsync(PatioDTO dto);
         Task<PatioDTO> UpdateAsync(int id, PatioDTO dto);
         Task DeleteAsync(int id);
+
+        Task<object> ObterContagemPorSetorAsync(string setor);
+        Task<object> ObterStatusPorPlacaAsync(string placa);
+        Task<Dictionary<string, int>> ObterResumoStatusAsync();
     }
 }
+
