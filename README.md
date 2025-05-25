@@ -1,6 +1,6 @@
 # MotoVision - ASP.NET Core com Oracle e EF Core
 
-Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framework Core e banco de dados Oracle, que gerencia o cadastro de Motos, Pátios e relacionamentos entre elas com base em status, cores e setores.
+Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framework Core e banco de dados Oracle, que gerencia o cadastro de Motos, Pátios, Usuários de Pátio e seus relacionamentos com base em status, cores e setores.
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -30,13 +30,23 @@ Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framew
 | Id    | int    | Identificador do pátio |
 | Nome  | string | Nome do pátio          |
 
+### UsuarioPatio
+
+| Campo  | Tipo   | Descrição                          |
+|--------|--------|-------------------------------------|
+| Id     | int    | Identificador do usuário           |
+| Nome   | string | Nome do usuário                    |
+| Email  | string | E-mail do usuário                  |
+| Funcao | string | Função exercida no pátio           |
+| PatioId| int    | Relacionamento com o Pátio         |
+
 ## 🚀 Endpoints
 
 ### MotoController
 
 - `GET /api/moto` → Lista todas as motos
 - `GET /api/moto/{id}` → Detalhes de uma moto
-- `POST /api/moto` → Criação de moto
+- `POST /api/moto`
 ```json
 {
   "modelo": "Honda Biz",
@@ -45,8 +55,8 @@ Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framew
   "nomePatio": "Pátio Butantã"
 }
 ```
-- `PUT /api/moto/{id}` → Atualização
-- `DELETE /api/moto/{id}` → Exclusão
+- `PUT /api/moto/{id}`
+- `DELETE /api/moto/{id}`
 
 ### PatioController
 
@@ -60,6 +70,38 @@ Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framew
 ```
 - `PUT /api/patio/{id}`
 - `DELETE /api/patio/{id}`
+
+#### 🔎 Endpoints adicionais:
+
+- `GET /api/patio/setor/{setor}/contagem`
+```json
+{
+  "status": "DISPONIVEL",
+  "quantidade": 5
+}
+```
+
+- `GET /api/patio/moto/{placa}/status`
+```json
+{
+  "status": "MANUTENCAO",
+  "setor": "Setor C",
+  "cor": "Amarelo"
+}
+```
+
+- `GET /api/patio/status`
+```json
+{
+  "DISPONIVEL": 3,
+  "RESERVADA": 1,
+  "MANUTENCAO": 2,
+  "FALTA_PECA": 0,
+  "INDISPONIVEL": 1,
+  "DANOS_ESTRUTURAIS": 1,
+  "SINISTRO": 0
+}
+```
 
 ## 🧠 Lógica do Setor e Cor por Status
 
@@ -82,7 +124,7 @@ Este projeto é uma API RESTful desenvolvida com ASP.NET Core 8.0, Entity Framew
 dotnet ef database update
 ```
 4. Iniciar a aplicação no Visual Studio com depuração
-5. Acessar o Swagger: `https://localhost:xxxx/swagger`
+5. Acessar o Swagger: `https://localhost:{porta}/swagger`
 
 (Atualmente está configurado com o meu banco de dados e o localhost com a porta 8080)
 
