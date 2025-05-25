@@ -1,39 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Mottu.Application.DTOs;
-using Mottu.Application.Interfaces;
-namespace Mottu.API.Controllers
+﻿namespace Mottu.API.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Mottu.Application.DTOs;
+    using Mottu.Application.Interfaces;
+
     [ApiController]
     [Route("api/[controller]")]
     public class PatioController : ControllerBase
     {
-        private readonly IPatioService _patioService;
+        private readonly IPatioService _service;
 
-        public PatioController(IPatioService patioService)
+        public PatioController(IPatioService service)
         {
-            _patioService = patioService;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _patioService.GetAllAsync());
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _patioService.GetByIdAsync(id));
+        public async Task<IActionResult> Get(int id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PatioDTO dto)
         {
-            var result = await _patioService.CreateAsync(dto);
+            var result = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] PatioDTO dto) => Ok(await _patioService.UpdateAsync(id, dto));
+        public async Task<IActionResult> Put(int id, [FromBody] PatioDTO dto) => Ok(await _service.UpdateAsync(id, dto));
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _patioService.DeleteAsync(id);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }

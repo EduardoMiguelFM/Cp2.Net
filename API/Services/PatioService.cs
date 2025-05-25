@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace Mottu.API.Services
-{ 
+{
     public class PatioService : IPatioService
     {
         private readonly ApplicationDbContext _context;
@@ -44,7 +44,8 @@ namespace Mottu.API.Services
             var patio = await _context.Patios.FindAsync(id);
             if (patio is null) throw new Exception("Pátio não encontrado");
 
-            _mapper.Map(dto, patio);
+            patio.Nome = dto.Nome;
+
             await _context.SaveChangesAsync();
             return _mapper.Map<PatioDTO>(patio);
         }
@@ -58,5 +59,4 @@ namespace Mottu.API.Services
             await _context.SaveChangesAsync();
         }
     }
-
 }

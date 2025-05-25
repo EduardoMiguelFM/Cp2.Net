@@ -1,40 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Mottu.Application.DTOs;
-using Mottu.Application.Interfaces;
-
-namespace Mottu.API.Controllers
+﻿namespace Mottu.API.Controllers
 {
+     using Microsoft.AspNetCore.Mvc;
+    using Mottu.Application.DTOs;
+    using Mottu.Application.Interfaces;
+
     [ApiController]
     [Route("api/[controller]")]
     public class MotoController : ControllerBase
     {
-        private readonly IMotoService _motoService;
+        private readonly IMotoService _service;
 
-        public MotoController(IMotoService motoService)
+        public MotoController(IMotoService service)
         {
-            _motoService = motoService;
+            _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() => Ok(await _motoService.GetAllAsync());
+        public async Task<IActionResult> GetAll() => Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id) => Ok(await _motoService.GetByIdAsync(id));
+        public async Task<IActionResult> Get(int id) => Ok(await _service.GetByIdAsync(id));
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] MotoDTO dto)
         {
-            var result = await _motoService.CreateAsync(dto);
+            var result = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] MotoDTO dto) => Ok(await _motoService.UpdateAsync(id, dto));
+        public async Task<IActionResult> Put(int id, [FromBody] MotoDTO dto) => Ok(await _service.UpdateAsync(id, dto));
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            await _motoService.DeleteAsync(id);
+            await _service.DeleteAsync(id);
             return NoContent();
         }
     }
